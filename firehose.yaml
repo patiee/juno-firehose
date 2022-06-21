@@ -1,0 +1,12 @@
+# juno
+start:
+  args:
+    - ingestor
+    - merger
+    - firehose
+    - relayer
+  flags:
+    common-first-streamable-block: 2616300
+    ingestor-mode: node
+    ingestor-node-path: /juno/bin/junod
+    ingestor-node-args: start --x-crisis-skip-assert-invariants
