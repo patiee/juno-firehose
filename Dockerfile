@@ -6,18 +6,17 @@ ARG arch=x86_64
 WORKDIR /juno
 COPY juno .
 
-RUN go build -o bin/junod ./cmd/junod
+RUN go build -o bin/junod ./cmd/junod 
 
-# rest server
-EXPOSE 1317
-# tendermint p2p
-EXPOSE 26656
-# tendermint rpc
-EXPOSE 26657
+# firehose 
+EXPOSE 9030
 
 # Build Firehose cosmos
 WORKDIR /app
 COPY firehose-cosmos .
+
+RUN mkdir -p /output
+RUN chmod 777 /output
 
 RUN go mod download
 RUN make build
@@ -29,10 +28,10 @@ RUN chown -R firehose-cosmos:firehose-cosmos /app
 
 USER 1234
 
-RUN mkdir -p output 
-
 RUN ["/app/build/firehose-cosmos", "init"]
+
 COPY firehose.yaml .
+COPY firehose-merger.yaml .
 COPY app.toml /home/firehose-cosmos/.juno/config/app.toml
 COPY config.toml /home/firehose-cosmos/.juno/config/config.toml
 COPY genesis.json /home/firehose-cosmos/.juno/config/genesis.json

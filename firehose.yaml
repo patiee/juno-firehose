@@ -1,12 +1,13 @@
-# juno
+# firehose juno mainnet
 start:
   args:
     - ingestor
-    - merger
     - firehose
     - relayer
+    - merger
   flags:
-    common-first-streamable-block: 2616300
+    common-first-streamable-block: 2578099
     ingestor-mode: node
     ingestor-node-path: /juno/bin/junod
     ingestor-node-args: start --x-crisis-skip-assert-invariants
+    firehose-rpc-head-tracker-url: https://rpc.juno-1.api.onfinality.io/status
