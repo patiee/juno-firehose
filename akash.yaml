@@ -1,0 +1,48 @@
+---
+version: "2.0"
+
+services:
+  conduit:
+    image: docker.io/myszapati/juno-firehose-v3.1.4
+    expose:
+      - port: 9030
+        as: 9030
+        to:
+          - global: true
+  # proxy:
+  #   image: nginx
+  #   expose:
+  #     - port: 443
+  #       as: 443
+  #       to:
+  #         - global: true
+  #     # - port: 8448
+  #     #   as: 8448
+  #     #     - global: true
+profiles:
+  compute:
+    junofirehose:
+      resources:
+        cpu:
+          units: 2
+        memory:
+          size: 8Gi
+        storage:
+          size: 1Ti
+  placement:
+    akash:
+      attributes:
+        host: akash
+      signedBy:
+        anyOf:
+          - "akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"
+      pricing:
+        conduit: 
+          denom: uakt
+          amount: 900000
+
+deployment:
+  junofirehose:
+    akash:
+      profile: junofirehose
+      count: 1
