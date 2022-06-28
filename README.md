@@ -3,7 +3,7 @@
 ### Juno
 clone
 ```
-    git clone git@github.com:CosmosContracts/juno.git
+    git clone git@github.com:figment-networks/juno.git
     cd juno && git checkout firehose-v3.0.0
 ```
 
